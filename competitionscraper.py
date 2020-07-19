@@ -12,3 +12,6 @@ class CompetitionScraper:
         op.add_experimental_option('excludeSwitches', ['enable-logging'])   # Suppress devtools listening message
         driver = webdriver.Chrome(options=op)
         return driver
+    
+    def get_competition_json(self):
+        return {}
