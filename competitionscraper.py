@@ -1,8 +1,9 @@
 from selenium import webdriver
 
 class CompetitionScraper:
-    def __init__(self, verbose=False):
+    def __init__(self, deep_player_data=True, verbose=False):
         self.driver = self.get_driver()
+        self.deep_player_data = deep_player_data
         self.verbose = verbose
 
     def get_driver(self):

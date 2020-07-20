@@ -4,8 +4,6 @@ from selenium.webdriver.support.wait import WebDriverWait
 from competitionscraper import CompetitionScraper
 
 class PremierLeagueScraper(CompetitionScraper):
-    deep_player_data = True
-
     def get_competition_json(self):
         competition = { 'name': 'Premier League' }
         self.driver.get('https://www.premierleague.com/clubs')
@@ -46,7 +44,7 @@ class PremierLeagueScraper(CompetitionScraper):
         player_data['position'] = container.find(class_ = 'position').get_text()
         player_data['nationality'] = container.find(class_ = 'playerCountry').get_text()
 
-        if PremierLeagueScraper.deep_player_data:
+        if self.deep_player_data:
             self.driver.get('https://www.premierleague.com' + relative_url)
             WebDriverWait(self.driver, 10).until(lambda x: x.find_element_by_xpath('(//img[@data-script="pl_player-image"])[1]').get_attribute('src').startswith('https://'))
             page = BeautifulSoup(self.driver.page_source, 'html.parser')

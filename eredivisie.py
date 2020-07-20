@@ -4,8 +4,6 @@ from selenium.webdriver.support.wait import WebDriverWait
 from competitionscraper import CompetitionScraper
 
 class EredivisieScraper(CompetitionScraper):
-    deep_player_data = True     # Set this to false to stop from going to individual player pages
-
     def get_competition_json(self):
         competition = { 'name': 'Eredivisie' }
         self.driver.get('https://eredivisie.nl/nl-nl/Clubs')
@@ -40,7 +38,7 @@ class EredivisieScraper(CompetitionScraper):
         player_data['number'] = container.find('span', { 'class' : 'club-stats__selection__jerseynr' }).get_text()
         player_data['position'] = container.find('span', { 'class' : 'club-stats__selection__position' }).get_text()
 
-        if EredivisieScraper.deep_player_data:
+        if self.deep_player_data:
             url = container.find('a', { 'class' : 'club-stats__selection__name' })['href']
             self.driver.get(url)
             page = BeautifulSoup(self.driver.page_source, 'html.parser')

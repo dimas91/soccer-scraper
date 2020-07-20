@@ -10,8 +10,8 @@ competitions = []
 
 # Eredivisie
 time_start = time.time()
-eredivisie = EredivisieScraper(verbose)
-premierleague = PremierLeagueScraper(verbose)
+eredivisie = EredivisieScraper(verbose=verbose)
+premierleague = PremierLeagueScraper(verbose=verbose)
 
 competitions.append(eredivisie.get_competition_json())
 competitions.append(premierleague.get_competition_json())
