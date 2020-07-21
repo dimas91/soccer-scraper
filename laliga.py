@@ -19,8 +19,8 @@ class LaLigaScraper(CompetitionScraper):
             competition['clubs'] = list(map(self.get_club_data, club_urls))
             self.driver.close()
             self.driver.quit()
-        except Exception as e:
-            print('Something went wrong:', e)
+        except Exception as ex:
+            print('Something went wrong:', str(ex))
             self.driver.close()
             self.driver.quit()
         return competition
@@ -56,12 +56,11 @@ class LaLigaScraper(CompetitionScraper):
             return club_data
         except Exception as ex:
             error = str(ex)
-            print(error)
+            print('Something went wrong:', error)
             return { 'error': error }
 
     def get_player_data(self, url):
         try:
-            print('Getting player data for', url)
             player_data = {}
             has_image = True
             self.driver.get(url)
