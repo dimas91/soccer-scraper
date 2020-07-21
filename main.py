@@ -9,19 +9,22 @@ from laliga import LaLigaScraper
 verbose = True
 competitions = []
 test = False
-
-# Eredivisie
 time_start = time.time()
-eredivisie = EredivisieScraper(verbose=verbose)
-premierleague = PremierLeagueScraper(verbose=verbose)
-laliga = LaLigaScraper(verbose=verbose)
 
-competitions.append(eredivisie.get_competition_json())
-competitions.append(premierleague.get_competition_json())
-competitions.append(laliga.get_competition_json())
+scrapers = {
+   'eredivisie': EredivisieScraper(verbose=verbose),
+   'premierleague': PremierLeagueScraper(verbose=verbose),
+   'laliga': LaLigaScraper(verbose=verbose),
+}
+
+for name, scraper in scrapers.items():
+   try:
+      competitions.append(scraper.get_competition_json())
+   except Exception as ex:
+      print('Couldn\'t scrape', name, ':', str(ex))
+
 time_end = time.time()
 print('Scraping complete in', time_end - time_start, 'seconds')
-
 
 # Print the result to competitions.json
 if not test:
