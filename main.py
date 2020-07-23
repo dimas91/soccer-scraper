@@ -7,6 +7,7 @@ from premierleague import PremierLeagueScraper
 from laliga import LaLigaScraper
 from ligueun import LigueUnScraper
 from bundesliga import BundesligaScraper
+from seriea import SerieAScraper
 
 verbose = True
 competitions = []
@@ -19,6 +20,7 @@ scrapers = {
    'laliga': LaLigaScraper(verbose=verbose),
    'ligue1': LigueUnScraper(verbose=verbose),
    'bundesliga': BundesligaScraper(verbose=verbose),
+   'seriea': SerieAScraper(verbose=verbose),
 }
 
 for name, scraper in scrapers.items():
