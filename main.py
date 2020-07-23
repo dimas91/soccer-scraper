@@ -5,7 +5,8 @@ import time
 from eredivisie import EredivisieScraper
 from premierleague import PremierLeagueScraper
 from laliga import LaLigaScraper
-from ligueun import LigueUnScraper 
+from ligueun import LigueUnScraper
+from bundesliga import BundesligaScraper
 
 verbose = True
 competitions = []
@@ -17,13 +18,14 @@ scrapers = {
    'premierleague': PremierLeagueScraper(verbose=verbose),
    'laliga': LaLigaScraper(verbose=verbose),
    'ligue1': LigueUnScraper(verbose=verbose),
+   'bundesliga': BundesligaScraper(verbose=verbose),
 }
 
 for name, scraper in scrapers.items():
    try:
       competition = scraper.get_competition_json()
       competitions.append(competition)
-      with open('output/' + name + '.json', 'w+') as fp:
+      with open(name + '.json', 'w+') as fp:
          json.dump(competition, fp)
 
    except Exception as ex:
@@ -34,5 +36,5 @@ print('Scraping complete in', time_end - time_start, 'seconds')
 
 # Print the result to output/competitions.json
 if not test:
-   with open('output/competitions.json', 'w+') as fp:
+   with open('competitions.json', 'w+') as fp:
       json.dump(competitions, fp)
