@@ -52,7 +52,16 @@ class SerieAScraper(CompetitionScraper):
             page = BeautifulSoup(self.driver.page_source, 'html.parser')
 
             info_sections = page.find(class_ = 'organigramma').find('aside').find_all('section')
-            club_data['url'] = info_sections[2].find_all('article')[1].find('a')['href']
+            url_sections = info_sections[2].find_all('article')
+            url_section = None
+
+            if len(url_sections) == 2:
+                url_section = url_sections[1]
+            else:
+                url_section = url_sections[0]
+            
+            club_data['url'] = url_section.find('a')['href']
+
             club_data['stadium'] = info_sections[1].find_all('article')[1].find('p').get_text().title()
 
             squad_url = url + '/team'
@@ -77,7 +86,7 @@ class SerieAScraper(CompetitionScraper):
 
         try:
             cells = container.find_all('td', recursive = False)
-            player_data['name'] = cells[1].find('span').get_text().title()
+            player_data['name'] = cells[1].find('span').get_text().title().strip()
             player_data['number'] = cells[0].get_text()
             player_data['position'] = cells[3].get_text()
             player_data['nationality'] = cells[4].find('img')['title']
