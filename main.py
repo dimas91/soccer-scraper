@@ -5,6 +5,7 @@ import time
 from eredivisie import EredivisieScraper
 from premierleague import PremierLeagueScraper
 from laliga import LaLigaScraper
+from ligueun import LigueUnScraper 
 
 verbose = True
 competitions = []
@@ -15,11 +16,16 @@ scrapers = {
    'eredivisie': EredivisieScraper(verbose=verbose),
    'premierleague': PremierLeagueScraper(verbose=verbose),
    'laliga': LaLigaScraper(verbose=verbose),
+   'ligue1': LigueUnScraper(verbose=verbose),
 }
 
 for name, scraper in scrapers.items():
    try:
-      competitions.append(scraper.get_competition_json())
+      competition = scraper.get_competition_json()
+      competitions.append(competition)
+      with open(name + '.json', 'w+') as fp:
+         json.dump(competition, fp)
+
    except Exception as ex:
       print('Couldn\'t scrape', name, ':', str(ex))
 
