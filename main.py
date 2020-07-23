@@ -23,7 +23,7 @@ for name, scraper in scrapers.items():
    try:
       competition = scraper.get_competition_json()
       competitions.append(competition)
-      with open(name + '.json', 'w+') as fp:
+      with open('output/' + name + '.json', 'w+') as fp:
          json.dump(competition, fp)
 
    except Exception as ex:
@@ -32,7 +32,7 @@ for name, scraper in scrapers.items():
 time_end = time.time()
 print('Scraping complete in', time_end - time_start, 'seconds')
 
-# Print the result to competitions.json
+# Print the result to output/competitions.json
 if not test:
-   with open('competitions.json', 'w+') as fp:
+   with open('output/competitions.json', 'w+') as fp:
       json.dump(competitions, fp)
