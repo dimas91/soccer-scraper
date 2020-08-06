@@ -67,7 +67,7 @@ class PremierLeagueScraper(CompetitionScraper):
                 if data_container is not None:
                     dob_div = data_container.find(class_ = 'pdcol2').find(class_ = 'info')
                     if dob_div is not None:
-                        dob_div.get_text().strip().split(' ')[0]
+                        player_data['birth_date'] = dob_div.get_text().strip().split(' ')[0]
                     height_div = data_container.find(class_ = 'pdcol3').find(class_ = 'info')
                     if height_div is not None:
                         player_data['height'] = height_div.get_text().replace('cm', '')
