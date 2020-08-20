@@ -9,7 +9,7 @@ class BundesligaScraper(CompetitionScraper):
     base_url = 'https://www.bundesliga.com/'
 
     def get_competition_json(self):
-        competition = { 'name': 'Premier League' }
+        competition = { 'name': 'Bundesliga' }
 
         try:
             self.driver.get('https://www.bundesliga.com/en/bundesliga/table')
@@ -63,11 +63,14 @@ class BundesligaScraper(CompetitionScraper):
                 number_container = tile.find(class_ = 'playerNumber')
                 if number_container is None:
                     continue
+                #if number_container is None:
+                #    continue
 
                 player = {}
                 player['first_name'] = tile.find(class_ = 'names').find('h5').get_text()
                 player['last_name'] = tile.find(class_ = 'names').find('h4').get_text()
                 player['number'] = number_container.get_text()
+                #player['number'] = number_container.get_text()
                 player_url = BundesligaScraper.base_url + tile.find('a')['href']
                 club_data['players'].append(self.get_player_data(player_url))
 
